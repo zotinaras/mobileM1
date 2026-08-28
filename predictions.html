@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Feuille de Predictions - Mini-TP 1</title>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #24292e;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .header {
+        border-bottom: 2px solid #0366d6;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+    }
+    .header h1 {
+        font-size: 20px;
+        margin: 0 0 6px 0;
+        color: #0366d6;
+    }
+    .header .subtitle {
+        font-size: 13px;
+        color: #586069;
+        margin: 0;
+    }
+    .meta-box {
+        display: flex;
+        justify-content: space-between;
+        background: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+    .meta-box div {
+        margin: 2px 0;
+    }
+    .section-title {
+        font-size: 15px;
+        font-weight: bold;
+        color: #24292e;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 12px;
+    }
+    th, td {
+        border: 1px solid #d1d5da;
+        padding: 8px 10px;
+        text-align: left;
+        vertical-align: middle;
+    }
+    th {
+        background-color: #f1f8ff;
+        color: #0366d6;
+        font-weight: 600;
+    }
+    tr:nth-child(even) {
+        background-color: #fafbfc;
+    }
+    .badge-no {
+        display: inline-block;
+        background-color: #28a745;
+        color: #ffffff;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 11px;
+    }
+    code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        background-color: rgba(27,31,35,0.05);
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 11px;
+    }
+    .explanations {
+        background-color: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        padding: 12px 16px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .explanations ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    .explanations li {
+        margin-bottom: 8px;
+    }
+    .footer {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 11px;
+        color: #6a737d;
+        border-top: 1px solid #eaecef;
+        padding-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>ITUniversity —  M1 · Developpement mobile Kotlin</h1>
+    <p class="subtitle">MINI-TP 1 : « Lire et transformer » — Feuille de predictions (Partie B)</p>
+</div>
+
+<div class="meta-box">
+    <div><strong>Etudiant :</strong> Zotina/ETUOO2597</div>
+    <div><strong>Fichier source :</strong> <code>Collectes.kt</code></div>
+    <div><strong>Date :</strong> Aout 2026</div>
+</div>
+
+<div class="section-title">Tableau des predictions et sorties console</div>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 8%;">Appel</th>
+            <th style="width: 32%;">Ma prediction (avant execution)</th>
+            <th style="width: 48%;">Sortie observee (apres execution)</th>
+            <th style="width: 12%; text-align: center;">Ecart ?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>P1</strong></td>
+            <td><code>P1: [Cafe, Girofle, Litchi, Vanille]</code></td>
+            <td><code>P1: [Café, Girofle, Litchi, Vanille]</code></td>
+            <td style="text-align: center;"><span class="badge-no">Non (0)</span></td>
+        </tr>
+        <tr>
+            <td><strong>P2</strong></td>
+            <td><code>P2: 30.0 kg de Litchi (RASOA Marie) — prix non fixé</code></td>
+            <td><code>P2: 30.0 kg de Litchi (RASOA Marie) — prix non fixé</code></td>
+            <td style="text-align: center;"><span class="badge-no">Non (0)</span></td>
+        </tr>
+        <tr>
+            <td><strong>P3</strong></td>
+            <td><code>P3: 6 collectes à Ambodivoara</code></td>
+            <td><code>P3: 6 collectes à Ambodivoara</code></td>
+            <td style="text-align: center;"><span class="badge-no">Non (0)</span></td>
+        </tr>
+        <tr>
+            <td><strong>P4</strong></td>
+            <td><code>P4: 1 250 000 Ar</code></td>
+            <td><code>P4: 1 250 000 Ar</code></td>
+            <td style="text-align: center;"><span class="badge-no">Non (0)</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="section-title">Analyse et explications des resultats</div>
+
+<div class="explanations">
+    <ul>
+        <li><strong>Appel P1 (<code>produitsCollectes(collectes)</code>) :</strong> La fonction applique <code>map { it.produit.nom }</code> pour extraire les noms, <code>distinct()</code> pour supprimer les doublons (Vanille, Cafe, Girofle, Litchi), puis <code>sorted()</code> pour trier par ordre alphabetique. Le resultat obtenu correspond exactement a la liste triee.</li>
+        <li><strong>Appel P2 (<code>collectes[4].resume()</code>) :</strong> La 5eme collecte (index 4) concerne 30.0 kg de litchi de RASOA Marie. Le prix au kilo etant <code>null</code>, l operateur safe call combine a l operateur Elvis (<code>?.let { ... } ?: "prix non fixé"</code>) renvoie correctement la chaine de remplacement par defaut.</li>
+        <li><strong>Appel P3 (<code>collectesDuVillage(collectes, "Ambodivoara").size</code>) :</strong> Les producteurs RAKOTO Jean (id 1) et RANDRIA Paul (id 3) sont originaires d Ambodivoara. Le filtre <code>filter { it.producteur.village == village }</code> retient leurs 6 collectes (3 chacun sur un total de 8 collectes).</li>
+        <li><strong>Appel P4 (<code>formatAriary(1_250_000.0)</code>) :</strong> Le nombre est converti en chaine ("1250000"), inverse ("0000521"), decoupe en blocs de 3 caracteres (<code>chunked(3)</code> -> ["000", "052", "1"]), joint avec des espaces ("000 052 1") puis reinverse pour produire le formatage des milliers "1 250 000 Ar".</li>
+    </ul>
+</div>
+
+<div class="footer">
+    Mini-TP 1 Kotlin — ITUniversity  M1 · Feuille generee automatiquement (PDF / Image)
+</div>
+
+</body>
+</html>

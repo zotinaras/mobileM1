@@ -1,4 +1,4 @@
-# Predictions - Mini-TP 1 (Partie B)
+# Predictions - Mini-TP 1 (Partie B) - Zotina/ETUOO2597
 
 | Appel | Prediction | Sortie observee | Ecart ? | Explication si ecart |
 |-------|-----------|------------------|---------|------------------------|

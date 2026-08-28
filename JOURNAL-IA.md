@@ -1,4 +1,4 @@
-# Journal IA — Mini-TP 1 — zotina
+# Journal IA — Mini-TP 1 — Zotina/ETUOO2597
 
 - Fonction soumise : `collectesValorisables(liste: List<Collecte>)`
 - Remarque principale de l'IA : Le code est clair et simple a lire avec filter et sortedByDescending, mais appeler prixEstime(it) plusieurs fois (dans le filtre puis pendant le tri) recalcule plusieurs fois le meme prix au lieu de stocker la valeur.

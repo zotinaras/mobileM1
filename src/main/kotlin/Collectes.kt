@@ -1,6 +1,7 @@
 // ============================================================================
 // Mini-TP 1 — Kotlin essentiel : « Lire et transformer »
-// ITUniversity — Module M1 · Séance 1
+// ITUniversity —  M1 · Developpement mobile Kotlin
+// Etudiant : Zotina/ETUOO2597
 // ----------------------------------------------------------------------------
 // Ce fichier COMPILE et S'EXÉCUTE tel quel : lancez main() dès l'ouverture.
 //
