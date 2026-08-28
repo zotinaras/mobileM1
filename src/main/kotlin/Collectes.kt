@@ -77,12 +77,15 @@ val collectes = listOf(
 
 /** Formate un montant en ariary : 1250000.0 -> "1 250 000 Ar" */
 fun formatAriary(montant: Double): String {
+    // A-1 : Appel de méthode et conversion de type (.toLong().toString()), semblable aux méthodes Java type Long.toString((long) montant).
     val entier = montant.toLong().toString()
+    // A-3 : Chaînage subtil (reversed().chunked(3).joinToString(" ").reversed()) : inverse la chaîne pour découper en tranches de 3 caractères depuis la droite (les unités), insère les espaces de séparation de milliers, puis ré-inverse la chaîne pour restituer le bon ordre.
     val groupes = entier.reversed().chunked(3).joinToString(" ").reversed()
     return "$groupes Ar"
 }
 
 /** Résumé d'une collecte, avec gestion du prix éventuellement absent. */
+// A-2 : Fonction d'extension (Collecte.resume) et opérateur de safe call combiné à l'opérateur Elvis (?.let / ?:), permettant d'étendre la classe sans héritage et de gérer l'absence de prix sans NullPointerException.
 fun Collecte.resume(): String {
     val valeur = produit.prixKg?.let { formatAriary(poidsKg * it) } ?: "prix non fixé"
     return "${poidsKg} kg de ${produit.nom} (${producteur.nom}) — $valeur"
@@ -107,9 +110,8 @@ fun collectesDuVillage(liste: List<Collecte>, village: String): List<Collecte> =
  * immuables : servez-vous de copy()).
  * Exemple attendu : corrigerPoids(c, 5.0).poidsKg == 5.0
  */
-fun corrigerPoids(c: Collecte, nouveauPoidsKg: Double): Collecte {
-    TODO("Trou n°1 — une ligne avec copy()")
-}
+fun corrigerPoids(c: Collecte, nouveauPoidsKg: Double): Collecte =
+    c.copy(poidsKg = nouveauPoidsKg)
 
 /**
  * TROU n°2 — null safety.
@@ -119,9 +121,8 @@ fun corrigerPoids(c: Collecte, nouveauPoidsKg: Double): Collecte {
  *   prixEstime(collectes[0]) == 1125000.0   (4.5 × 250000)
  *   prixEstime(collectes[4]) == null        (litchi : prix non fixé)
  */
-fun prixEstime(c: Collecte): Double? {
-    TODO("Trou n°2 — une ligne avec ?.")
-}
+fun prixEstime(c: Collecte): Double? =
+    c.produit.prixKg?.let { it * c.poidsKg }
 
 /**
  * TROU n°3 — when.
@@ -131,8 +132,10 @@ fun prixEstime(c: Collecte): Double? {
  *   au-delà             -> "grosse"
  * Utilisez une expression when (sans if).
  */
-fun categorieDePoids(c: Collecte): String {
-    TODO("Trou n°3 — une expression when")
+fun categorieDePoids(c: Collecte): String = when {
+    c.poidsKg < 10.0 -> "petite"
+    c.poidsKg <= 25.0 -> "moyenne"
+    else -> "grosse"
 }
 
 /**
@@ -142,9 +145,9 @@ fun categorieDePoids(c: Collecte): String {
  *   {Vanille=18.5, Café=42.0, Girofle=15.0, Litchi=55.0}
  * Indice : groupBy, puis mapValues + sumOf — en une expression.
  */
-fun totalParProduit(liste: List<Collecte>): Map<String, Double> {
-    TODO("Trou n°4 — groupBy + mapValues/sumOf")
-}
+fun totalParProduit(liste: List<Collecte>): Map<String, Double> =
+    liste.groupBy { it.produit.nom }
+        .mapValues { (_, collectes) -> collectes.sumOf { it.poidsKg } }
 
 /**
  * TROU n°5 — collections : tri filtré.
@@ -153,18 +156,19 @@ fun totalParProduit(liste: List<Collecte>): Map<String, Double> {
  * Indice : filter (ou mapNotNull) + sortedByDescending, en réutilisant
  * prixEstime (trou n°2).
  */
-fun collectesValorisables(liste: List<Collecte>): List<Collecte> {
-    TODO("Trou n°5 — filter + sortedByDescending")
-}
+fun collectesValorisables(liste: List<Collecte>): List<Collecte> =
+    liste.filter { prixEstime(it) != null }
+        .sortedByDescending { prixEstime(it) }
 
 /**
  * BONUS ★ — pour ceux qui ont terminé.
  * Le producteur le plus actif en poids total collecté (ou null si la liste
  * est vide). Indice : groupBy + maxByOrNull.
  */
-fun producteurLePlusActif(liste: List<Collecte>): Producteur? {
-    TODO("Bonus ★ — groupBy + maxByOrNull")
-}
+fun producteurLePlusActif(liste: List<Collecte>): Producteur? =
+    liste.groupBy { it.producteur }
+        .maxByOrNull { (_, collectes) -> collectes.sumOf { it.poidsKg } }
+        ?.key
 
 // ----------------------------------------------------------------------------
 // VÉRIFICATION DES TROUS — décommentez l'appel dans main() au fur et à mesure
@@ -181,7 +185,7 @@ fun verifierTrous() {
     println("T4  " + totalParProduit(collectes) + "   (attendu : {Vanille=18.5, Café=42.0, Girofle=15.0, Litchi=55.0})")
     println("T5  " + collectesValorisables(collectes).map { it.resume() })
     // Bonus :
-    // println("★   " + producteurLePlusActif(collectes)?.nom)
+    println("★   " + producteurLePlusActif(collectes)?.nom)
 }
 
 // ----------------------------------------------------------------------------
@@ -204,5 +208,5 @@ fun main() {
     println("P4: " + formatAriary(1_250_000.0))
 
     // Une fois les trous complétés, décommentez :
-    // verifierTrous()
+    verifierTrous()
 }
