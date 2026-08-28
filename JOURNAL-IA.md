@@ -1,5 +1,5 @@
 # Journal IA — Mini-TP 1 — zotina
 
 - Fonction soumise : `collectesValorisables(liste: List<Collecte>)`
-- Remarque principale de l'IA : L'implémentation est idiomatique et très lisible grâce au chaînage déclaratif (`filter` + `sortedByDescending`), mais le calcul `prixEstime(it)` est exécuté de manière redondante lors du filtrage puis répété à chaque comparaison durant le tri au lieu d'associer temporairement chaque collecte à son prix calculé.
-- Mon verdict (accepte / rejette / nuance) et pourquoi : **Nuance** — J'accepte cette solution pour le TP car elle privilégie une grande clarté et concision sur des petits jeux de données, mais je nuance pour la production où un calcul redondant lors d'un tri sur une grande collection dégraderait les performances.
+- Remarque principale de l'IA : Le code est clair et simple a lire avec filter et sortedByDescending, mais appeler prixEstime(it) plusieurs fois (dans le filtre puis pendant le tri) recalcule plusieurs fois le meme prix au lieu de stocker la valeur.
+- Mon verdict (accepte / rejette / nuance) et pourquoi : Nuance - J accepte cette solution pour le TP car elle est tres facile a comprendre et concise pour un debutant, mais je nuance car sur une vraie application avec beaucoup de donnees recalculer les prix pendant le tri ralentirait l execution.

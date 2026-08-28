@@ -77,15 +77,15 @@ val collectes = listOf(
 
 /** Formate un montant en ariary : 1250000.0 -> "1 250 000 Ar" */
 fun formatAriary(montant: Double): String {
-    // A-1 : Appel de méthode et conversion de type (.toLong().toString()), semblable aux méthodes Java type Long.toString((long) montant).
+    // A-1 : Appel de methode et conversion de type (.toLong().toString()), tres proche de ce qu on fait en Java avec Long.toString((long) montant).
     val entier = montant.toLong().toString()
-    // A-3 : Chaînage subtil (reversed().chunked(3).joinToString(" ").reversed()) : inverse la chaîne pour découper en tranches de 3 caractères depuis la droite (les unités), insère les espaces de séparation de milliers, puis ré-inverse la chaîne pour restituer le bon ordre.
+    // A-3 : Enchainement pas evident au premier abord (reversed().chunked(3).joinToString(" ").reversed()) : inverse le texte pour decouper en blocs de 3 depuis la droite, met un espace et reinverse.
     val groupes = entier.reversed().chunked(3).joinToString(" ").reversed()
     return "$groupes Ar"
 }
 
 /** Résumé d'une collecte, avec gestion du prix éventuellement absent. */
-// A-2 : Fonction d'extension (Collecte.resume) et opérateur de safe call combiné à l'opérateur Elvis (?.let / ?:), permettant d'étendre la classe sans héritage et de gérer l'absence de prix sans NullPointerException.
+// A-2 : Fonction d extension (Collecte.resume) et operateurs safe call / Elvis (?.let / ?:), une syntaxe Kotlin nouvelle pour eviter les NullPointerException sans faire plein de if.
 fun Collecte.resume(): String {
     val valeur = produit.prixKg?.let { formatAriary(poidsKg * it) } ?: "prix non fixé"
     return "${poidsKg} kg de ${produit.nom} (${producteur.nom}) — $valeur"
