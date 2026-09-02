@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
  *   3. (bonus) Ouvrir le second écran      -> observez l'ENTRELACEMENT
  *      des callbacks des deux Activities (étiquettes CYCLE et CYCLE-2)
  *
- * Tâche de modification : compléter partagerCollecte() — voir le TODO.
+ * Tâche de modification : partagerCollecte() complétée (Intent implicite ACTION_SEND).
  */
 class MainActivity : AppCompatActivity() {
 
@@ -40,12 +40,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun partagerCollecte() {
-        // TODO — Tâche du mini-TP :
-        // Créer un Intent IMPLICITE (Intent.ACTION_SEND, type "text/plain")
-        // avec le texte "Collecte du jour : 4,5 kg de vanille",
-        // et le lancer via Intent.createChooser(...).
-        // Modèle : diapositive « Les Intents » du cours.
-        Log.i(tag, "partagerCollecte — à compléter !")
+        val intent = Intent(Intent.ACTION_SEND)
+            .setType("text/plain")
+            .putExtra(Intent.EXTRA_TEXT, "Collecte du jour : 4,5 kg de vanille")
+        startActivity(Intent.createChooser(intent, null))
     }
 
     override fun onStart() {
