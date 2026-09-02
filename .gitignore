@@ -1,0 +1,98 @@
+# ==============================
+# Android Studio / IntelliJ
+# ==============================
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Android Studio generated files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+
+# ==============================
+# Gradle
+# ==============================
+
+.gradle/
+build/
+*/build/
+
+# Gradle local configuration
+gradle-app.setting
+
+# ==============================
+# Android
+# ==============================
+
+local.properties
+
+# Generated APKs
+*.apk
+*.aab
+
+# Android Studio build outputs
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ==============================
+# Kotlin
+# ==============================
+
+*.class
+.kotlin/
+
+# ==============================
+# Java
+# ==============================
+
+*.class
+
+# ==============================
+# OS generated files
+# ==============================
+
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
+
+# ==============================
+# Temporary files
+# ==============================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# ==============================
+# Native / CMake
+# ==============================
+
+cmake-build-*/
+
+# ==============================
+# Signing files - IMPORTANT
+# ==============================
+
+*.jks
+*.keystore
+
+# ==============================
+# Firebase / Google services
+# ==============================
+
+# Uncomment if these contain private credentials
+# google-services.json
