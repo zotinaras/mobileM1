@@ -6,7 +6,7 @@
 // TRANSFORMATION 2 (après vérification) : rendez ce programme CONCURRENT
 // en déplaçant les await, ré-exécutez et notez la nouvelle durée
 // en commentaire ci-dessous.
-// Durée mesurée après transformation : ......... ms
+// Durée mesurée après transformation : 1040 ms
 // ============================================================================
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
@@ -16,12 +16,12 @@ fun main() = runBlocking {
         val poidsVanille = async {
             delay(1000)
             4.5
-        }.await()
+        }
         val poidsCafe = async {
             delay(800)
             6.0
-        }.await()
-        println("Poids total : " + (poidsVanille + poidsCafe) + " kg")
+        }
+        println("Poids total : " + (poidsVanille.await() + poidsCafe.await()) + " kg")
     }
     println("Durée totale : environ $duree ms")
 }
