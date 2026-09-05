@@ -28,14 +28,10 @@ import androidx.navigation.compose.rememberNavController
 /**
  * Mini-TP 5 — « Relier deux écrans »
  *
- * Les DEUX ÉCRANS sont fournis et fonctionnels :
- *   - EcranListe  : la liste des produits (LazyColumn)
- *   - EcranDetail : le détail d'un produit
- * ... mais ils ne sont PAS reliés : au lancement, seule la liste s'affiche,
- * et cliquer sur un produit ne fait rien.
- *
- * Votre travail : compléter la navigation — trois TODO dans AppNavigation().
- * Rien d'autre n'est à modifier.
+* Les DEUX ÉCRANS sont fournis et fonctionnels :
+*   - EcranListe  : la liste des produits (LazyColumn)
+*   - EcranDetail : le détail d'un produit
+* La navigation est complétée — trois TODO résolus dans AppNavigation().
  */
 
 data class Produit(
@@ -80,28 +76,24 @@ fun AppNavigation() {
             EcranListe(
                 produits = produits,
                 onProduitClick = { produitId ->
-                    // TODO 2 : naviguer vers le détail du produit cliqué.
-                    // Une ligne :  navController.navigate("detail/$produitId")
+                    navController.navigate("detail/$produitId")
                 }
             )
         }
 
-        // TODO 1 : déclarer la route du détail, avec son argument produitId.
-        // Modèle :
-        //   composable("detail/{produitId}") { backStackEntry ->
-        //       val id = backStackEntry.arguments
-        //           ?.getString("produitId")?.toIntOrNull()
-        //       val produit = produits.find { it.id == id }
-        //       if (produit != null) {
-        //           EcranDetail(
-        //               produit = produit,
-        //               onRetour = {
-        //                   // TODO 3 : revenir à la liste (dépiler).
-        //                   // Une ligne :  navController.popBackStack()
-        //               }
-        //           )
-        //       }
-        //   }
+        composable("detail/{produitId}") { backStackEntry ->
+            val id = backStackEntry.arguments
+                ?.getString("produitId")?.toIntOrNull()
+            val produit = produits.find { it.id == id }
+            if (produit != null) {
+                EcranDetail(
+                    produit = produit,
+                    onRetour = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
     }
 }
 
