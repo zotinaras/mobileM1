@@ -29,15 +29,12 @@ import androidx.compose.ui.unit.dp
 /**
  * Mini-TP 4 — « Faire vivre un écran »
  *
- * Cette application affiche une carte produit STATIQUE.
- * Le log RECOMP (déjà en place) trace chaque (re)composition de la carte :
- * dans le Logcat d'Android Studio, filtrez sur :  tag:RECOMP
- *
- * Déroulé (voir l'énoncé) :
- *   1. LIRE ce fichier, puis remplir les deux prédictions du modèle
- *      — AVANT tout lancement.
- *   2. TODO A : le compteur de quantité (remember + mutableStateOf + Button).
- *   3. TODO B : la carte sélectionnable (état booléen + clickable + couleur).
+* Cette application affiche une carte produit avec compteur et selection.
+* Le log RECOMP (déjà en place) trace chaque (re)composition de la carte :
+* dans le Logcat d'Android Studio, filtrez sur :  tag:RECOMP
+*
+* Déroulé :
+*   1. TODO A (compteur de quantite) et TODO B (carte sélectionnable) sont complétés.
  */
 
 data class Produit(
@@ -63,27 +60,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ProduitCard(produit: Produit) {
-    // Ce log trace chaque (re)composition de la carte — NE PAS le déplacer.
     Log.i("RECOMP", "ProduitCard se (re)compose")
 
-    // TODO B (à faire APRÈS le TODO A) :
-    // 1. Déclarez ici un état booléen :
-    //      var selectionnee by remember { mutableStateOf(false) }
-    // 2. Ajoutez au Modifier de la Card :  .clickable { selectionnee = !selectionnee }
-    // 3. Changez la couleur de la carte selon l'état, en remplaçant
-    //    les colors de la Card par :
-    //      colors = CardDefaults.cardColors(
-    //          containerColor = if (selectionnee)
-    //              MaterialTheme.colorScheme.primaryContainer
-    //          else MaterialTheme.colorScheme.surfaceVariant
-    //      )
+    var quantite by remember { mutableStateOf(0) }
+    var selectionnee by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable { selectionnee = !selectionnee },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = if (selectionnee)
+                MaterialTheme.colorScheme.primaryContainer
+            else MaterialTheme.colorScheme.surfaceVariant
         ),
     ) {
         Column(Modifier.padding(16.dp)) {
@@ -93,20 +83,14 @@ fun ProduitCard(produit: Produit) {
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(
-                produit.prixKg?.let { "${formatAriary(it)} / kg" } ?: "prix non fixé",
+                produit.prixKg?.let { "${formatAriary(it)} / kg" } ?: "prix non fixe",
                 style = MaterialTheme.typography.bodyLarge,
             )
 
             Spacer(Modifier.height(12.dp))
 
-            // TODO A :
-            // 1. Déclarez EN HAUT de la fonction (au-dessus de la Card) :
-            //      var quantite by remember { mutableStateOf(0) }
-            // 2. Remplacez les deux lignes ci-dessous par :
-            //      Text("Quantité : $quantite kg")
-            //      Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
-            Text("Quantité : (TODO A)")
-            Button(onClick = { /* TODO A */ }) { Text("Ajouter 1 kg") }
+            Text("Quantite : $quantite kg")
+            Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
         }
     }
 }
