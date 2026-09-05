@@ -76,11 +76,11 @@ colors = CardDefaults.cardColors(
 
 On a demande a l'IA de proposer une variante de mise en page de ProduitCard. On a compare les deux versions et on a rendu un jugement.
 
-**Verdict en 3 lignes :** *(a remplir apres avoir discute avec l'IA)*
+**Verdict en 3 lignes :**
 
-- ...
-- ...
-- ...
+- Je garde ma version avec Column car elle est plus naturelle et le texte est bien presente dans un ordre logique de haut en bas
+- La variante de l'IA avec Row rend la chose plus compliquee avec des poids et des modifier et c'est moins clair pour un debutant
+- Les deux versions sont visuellement correctes mais la mienne est plus simple a comprendre et a modifier
 
 ---
 
