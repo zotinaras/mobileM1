@@ -30,10 +30,9 @@ import androidx.navigation.compose.rememberNavController
 /**
  * Mini-TP 6 — « Compléter la couche manquante »
  *
- * La navigation (séance 5) est COMPLÈTE. Les écrans sont COMPLETS.
- * Il manque la couche qui porte l'état : le ViewModel — deux TODO
- * dans ProduitsViewModel.kt. Rien à modifier dans ce fichier,
- * sauf le bloc « CASSER LE FLUX » de l'étape 3 (à décommenter).
+* La navigation (séance 5) est COMPLÈTE. Les écrans sont COMPLETS.
+* Le ViewModel est complété — les deux TODO sont résolus dans ProduitsViewModel.kt.
+* Le bloc « CASSER LE FLUX » de l'étape 3 est décommenté.
  */
 
 data class Produit(
@@ -52,9 +51,8 @@ val produits = listOf(
 )
 
 // ÉTAPE 3 — CASSER LE FLUX : cette variable vit HORS du circuit
-// état -> observation -> recomposition. Décommentez-la avec le bloc
-// « triche » de EcranDetail, et observez.
-// var poidsTriche = 0
+// état -> observation -> recomposition. Elle est décommentée ci-dessus.
+var poidsTriche = 0
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,14 +165,10 @@ fun EcranDetail(
             Text("Ajouter 1 kg au panier")
         }
 
-        // ÉTAPE 3 — CASSER LE FLUX : décommentez ce bloc (et la variable
-        // poidsTriche en haut du fichier), puis cliquez sur ce bouton.
-        // Qu'affiche le texte ? Pourquoi ? (Voir l'énoncé.)
-        // Spacer(Modifier.height(16.dp))
-        // Text("Triche : $poidsTriche kg (hors circuit)")
-        // Button(onClick = { poidsTriche++ }) {
-        //     Text("Ajouter 1 kg (hors circuit)")
-        // }
+        Text("Triche : $poidsTriche kg (hors circuit)")
+        Button(onClick = { poidsTriche++ }) {
+            Text("Ajouter 1 kg (hors circuit)")
+        }
 
         Spacer(Modifier.height(24.dp))
         Button(onClick = onRetour) { Text("Retour à la liste") }
