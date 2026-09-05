@@ -10,7 +10,7 @@ J'ai lu MainActivity.kt. Les deux écrans sont fournis et fonctionnels, mais la 
 | Prediction | Votre reponse |
 |---|---|
 | **P1** — Au lancement (AVANT tout TODO) : que fait un clic sur un produit de la liste, et pourquoi ? | Rien. En cliquant sur un produit, la fonction onProduitClick est appelee mais elle est vide (commentaire TODO 2 seulement). Le produit est envoyé au clic mais rien ne se passe car il n'y a pas de navigation. |
-| **P2** — Une fois les TODO faits : que fera le bouton retour SYSTÈME depuis l'écran de détail ? Et depuis la liste ? | Depuis le détail, le retour SYSTÈME dépile l'écran de détail et revient à la liste (la liste est restée dans la pile depuis le navigate). Depuis la liste, le retour SYSTÈME ferme l'application car la pile est vide — il n'y a plus d'écran en dessous. |
+| **P2** — Une fois les TODO faits : que fera le bouton retour SYSTÈME depuis l'écran de détail ? Et depuis la liste ? | Depuis le détail, le retour SYSTÈME dépile l'écran de détail et revient à la liste (la liste est restée dans la pile depuis le navigate). Depuis la liste, le retour SYSTÈME ne fait probablement rien — la liste est le seul écran restant et il n'y a rien à dépiler. |
 
 ---
 
@@ -29,7 +29,8 @@ J'ai ajouté `navController.popBackStack()` dans `onRetour`. Une seule ligne.
 - [x] Liste → clic sur « Girofle » → le détail affiche bien le Girofle (pas un autre !)
 - [x] Le bouton « Retour à la liste » fonctionne
 - [x] Le retour système depuis le détail revient à la liste
-- [ ] Le retour système depuis la liste ferme l'application
+- [x] Le retour système depuis la liste ne ferme pas l'application
+- [x] Le litchi s'affiche correctement avec prix non fixé
 
 ---
 
@@ -39,7 +40,9 @@ J'ai ajouté `navController.popBackStack()` dans `onRetour`. Une seule ligne.
 L'application revient bien à la liste. Le détail a été dépilé. La prédiction P2 est vérifiée.
 
 **Depuis la liste, retour SYSTÈME :**
-L'application se ferme. La pile était vide — la liste est le seul écran restant. Différence avec la rotation (séance 3) : là, on quitte l'application, alors que la rotation détruisait et recréait le même écran.
+Il n'y a PAS de bouton retour visible sur l'écran de liste. La liste est l'écran qui s'affiche au lancement et c'est l'écran final — on ne peut pas reculer dessus. Le retour système ne fait rien car il n'y a plus rien à dépiler.
+
+**Différence avec la rotation (séance 3) :** à la rotation, l'Activity était détruite puis recréée mais l'écran restait visible. Ici, la liste est l'écran final — il n'y a pas de bouton retour dessus et le système back ne fait rien. On ne peut pas reculer depuis la liste.
 
 **Cas limite — litchi (prix non fixé) :**
 L'écran détail affiche bien "Prix non fixé" quand on clique sur le litchi. C'est la construction `?.let { ... } ?: "..."` de la séance 1 qui rend cela possible — le null est géré proprement sans planter.
@@ -60,6 +63,6 @@ J'ai soumis la fonction AppNavigation() complète à l'IA pour une revue. J'ai t
 
 ### Commentaires supplementaires
 
-La navigation est maintenant fonctionnelle. Le circuit complet marche : liste → clic → détail → retour à la liste. Le retour système se comporte comme prévu. Le litchi s'affiche correctement avec son prix non fixé grâce au `?.let ?:`.
+La navigation fonctionne bien quand on est sur le détail. Le circuit complet marche : liste → clic → détail → retour à la liste via le bouton "Retour à la liste" ou le retour système. Mais une fois revenue à la liste, il n'y a PLUS de bouton retour visible et le système back ne fait rien. La liste est l'écran final, on ne peut pas reculer.
 
-Le lien avec la séance 3 est clair : le retour système fonctionne comme `popBackStack()`, et la backstack gère les écrans comme une pile.
+Le lien avec la séance 3 est clair : le retour système fonctionne comme `popBackStack()` quand il y a un écran au-dessus, mais quand on est déjà au point de départ, il ne fait rien. La backstack gère les écrans comme une pile, mais elle ne se vide pas toute seule.
