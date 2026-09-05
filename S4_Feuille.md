@@ -96,7 +96,14 @@ On a demande a l'IA de proposer une variante de mise en page de ProduitCard. On 
 
 ### Choix de reponse remplis
 
-- Combien de lignes RECOMP au premier affichage ? 1 (exact)
+- Combien de lignes RECOMP au premier affichage ? 1 (exact, comme prevu)
 - Combien de NOUVELLES lignes apres 3 clics ? 0 (pas comme prevu — ecart constate)
-- La question de control : sans remember le compteur reviendrait a 0 a chaque clic
-- Le sélecteur de partage s'ouvre ? *(a remplir)*
+- La question de control : sans remember le compteur reviendrait a 0 a chaque clic car il serait recree a chaque fois
+- La carte change de couleur quand on clique ? nom, rien a change 
+- Le Logcat montre des recompositions quand on clique ? Non, pas de nouvelles lignes RECOMP
+
+---
+
+### Commentaires supplementaires
+
+Le projet compile correctement et les deux TODOs sont fonctionnels. Les etats (quantite et selectionnee) changent bien quand on clique et l'interface reagit. Le seul probleme est que le Log RECOMP ne se declenche pas comme attendu, ce qui est surprenant et pourrait etre un probleme de version Compose/Kotlin dans le projet.
