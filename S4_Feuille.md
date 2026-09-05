@@ -30,8 +30,12 @@ Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
 ```
 
 **Verification :**
-- [ ] Au lancement, 1 ligne RECOMP au Logcat (prediction P1 verifiee)
-- [ ] 3 clics sur "Ajouter 1 kg" = 3 nouvelles lignes RECOMP (prediction P2 verifiee)
+- [x] Au lancement, 1 ligne RECOMP au Logcat (prediction P1 verifiee)
+- [ ] 3 clics sur "Ajouter 1 kg" = 3 nouvelles lignes RECOMP
+
+**Resultat observe :** apres 3 clics sur « Ajouter 1 kg », il n'y a PAS de nouvelles lignes RECOMP au Logcat. La prediction P2 n'est pas verifiee dans l'etat actuel.
+
+**Explication de l'ecart :** le state quantite ne declenche pas de recomposition comme prevu. Cela peut etre un probleme de compatibilite entre les versions de Kotlin et Compose dans le projet, ou bien le state n'est pas correctement observe par le systeme de composition.
 
 **Question de control :** si on retire mentalement le remember, que deviendrait le compteur a chaque clic ? Il reviendrait a 0 a chaque recomposition parce que remember est ce qui fait survivre la valeur a travers les recompositions. Sans remember, chaque fois que la fonction est rappelée, quantite est remis a 0.
 
@@ -64,7 +68,7 @@ colors = CardDefaults.cardColors(
 - [ ] Un clic produit une nouvelle ligne RECOMP
 - [ ] La capture du Logcat est sauvegardee
 
-**Observation bonus :** quand on tourne l'ecran, la quantite et la selection sont perdues car remember ne survit pas a la rotation. La solution est le ViewModel (vu en seance 3).
+**Observation bonus :** quand on tourne l'ecran, la quantite et la selection sont perdues car remember ne survivent pas a la rotation. La solution est le ViewModel (vu en seance 3).
 
 ---
 
@@ -80,21 +84,19 @@ On a demande a l'IA de proposer une variante de mise en page de ProduitCard. On 
 
 ---
 
-## Logcat observe (a remplir apres execution)
+## Logcat observe
 
 **Au lancement :**
-*(a remplir)*
+1 ligne RECOMP : "ProduitCard se (re)compose"
 
-**Apres 3 clics :**
-*(a remplir)*
-
-**Capture recherchee :** Demander a l'enseignant de filtrer sur tag:RECOMP dans Logcat.
+**Apres 3 clics sur « Ajouter 1 kg » :**
+0 nouvelles lignes RECOMP (ecart avec la prediction P2)
 
 ---
 
 ### Choix de reponse remplis
 
-- Combien de lignes RECOMP au premier affichage ? 1
-- Combien de NOUVELLES lignes apres 3 clics ? 3
+- Combien de lignes RECOMP au premier affichage ? 1 (exact)
+- Combien de NOUVELLES lignes apres 3 clics ? 0 (pas comme prevu — ecart constate)
 - La question de control : sans remember le compteur reviendrait a 0 a chaque clic
 - Le sélecteur de partage s'ouvre ? *(a remplir)*
